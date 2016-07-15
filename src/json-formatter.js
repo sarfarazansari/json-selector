@@ -114,25 +114,6 @@ angular.module('jsonFormatter', ['RecursionHelper'])
   }
 
   function link(scope) {
-    scope.getExpression = function() {
-      var current = scope;
-      var parent = current.parent;
-      var path = "";
-
-      do {
-        if (angular.isArray(parent.json)) {
-          path = "[" + current.key + "]" + path;
-        } else {
-          path = "." + current.key + path;
-        }
-
-        current = parent;
-        parent = parent.parent;
-      } while (parent !== undefined);
-
-      console.log(path);
-    };
-
     scope.isArray = function () {
       return angular.isArray(scope.json);
     };
@@ -226,9 +207,30 @@ angular.module('jsonFormatter', ['RecursionHelper'])
         return '{' + kvs.join(', ') + ellipsis + '}';
       }
     };
-    
+
     scope.elementsSelectable = function () {
       return !!JSONFormatterConfig.elementsSelectable;
+    };
+
+    scope.getExpression = function() {
+      var current = scope;
+      var parent = current.parent;
+      var path = "";
+
+      if (parent && parent.json) {
+        do {
+          if (angular.isArray(parent.json)) {
+            path = "[" + current.key + "]" + path;
+          } else {
+            path = "." + current.key + path;
+          }
+
+          current = parent;
+          parent = parent.parent;
+        } while (parent !== undefined);
+      }
+
+      console.log(path);
     };
   }
 
