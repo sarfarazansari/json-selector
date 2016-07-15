@@ -3,11 +3,11 @@
 describe('json-formatter', function () {
   var scope, $compile, $rootScope, element, fakeModule, JSONFormatterConfig;
 
-  function createDirective(key, open) {
+  function createDirective(key, open, model) {
     open = open === undefined ? 0 : open;
     var elm;
     var template = '<json-formatter json="' + key + '" open="' + open +
-      '"></json-formatter>';
+        '" model="' + model + '"></json-formatter>';
 
     elm = angular.element(template);
     angular.element(document.body).prepend(elm);
@@ -258,6 +258,76 @@ describe('json-formatter', function () {
       });
 
     });
-  });
 
+    describe('elements selectable', function() {
+
+      it('default is disabled', function () {
+        element = createDirective('mixArray');
+        expect(element.find('.selector-checkbox').length).toBe(0);
+      });
+
+      describe('if enabled', function() {
+        beforeEach(function () {
+          JSONFormatterConfig.elementsSelectable = true;
+        });
+
+        it('should render "simple object"', function () {
+          element = createDirective('simpleObject', 1000);
+          expect(element.find('.selector-checkbox').length).toBe(2);
+        });
+
+        it('should render "longer object"', function () {
+          element = createDirective('longerObject', 1000);
+          expect(element.find('.selector-checkbox').length).toBe(16);
+        });
+
+        it('should render "array"', function () {
+          element = createDirective('array', 1000);
+          expect(element.find('.selector-checkbox').length).toBe(4);
+        });
+
+        it('should render "mixArray"', function () {
+          element = createDirective('mixArray', 1000);
+          expect(element.find('.selector-checkbox').length).toBe(5);
+        });
+
+        describe('on selecting elements', function() {
+          beforeEach(function () {
+            scope.model = [];
+            JSONFormatterConfig.elementsSelectable = true;
+          });
+
+          it('should add expressions to the model', function() {
+            element = createDirective('longerObject', 1000, 'model');
+            element.find('.selector-checkbox:eq(10)').click();
+            element.find('.selector-checkbox:eq(3)').click();
+            element.find('.selector-checkbox:eq(1)').click();
+            expect(scope.model.length).toBe(3);
+            expect(scope.model.indexOf('.anObject.c')).toBe(0);
+            expect(scope.model.indexOf('.numbers[1]')).toBe(1);
+            expect(scope.model.indexOf('.numbers')).toBe(2);
+          });
+        });
+
+        describe('on deselecting elements', function() {
+          beforeEach(function () {
+            scope.model = [];
+            JSONFormatterConfig.elementsSelectable = true;
+          });
+
+          it('should remove expressions from the model', function() {
+            element = createDirective('longerObject', 1000, 'model');
+            element.find('.selector-checkbox').click();
+            element.find('.selector-checkbox:eq(10)').click();
+            element.find('.selector-checkbox:eq(3)').click();
+            element.find('.selector-checkbox:eq(1)').click();
+            expect(scope.model.length).toBe(13);
+            expect(scope.model.indexOf('.anObject.c')).toBe(-1);
+            expect(scope.model.indexOf('.numbers[1]')).toBe(-1);
+            expect(scope.model.indexOf('.numbers')).toBe(-1);
+          });
+        });
+      });
+    });
+  });
 });
