@@ -259,8 +259,16 @@ angular.module('jsonFormatter', ['RecursionHelper'])
         }
 
         if (!scope.isSelected) {
+          if (angular.isArray(scope.model)) {
+            scope.model.push(expression);
+          }
+
           $jsonFormatter.select(expression);
         } else {
+          if (angular.isArray(scope.model)) {
+            scope.model.splice(scope.model.indexOf(expression), 1);
+          }
+
           $jsonFormatter.deselect(expression);
         }
 
@@ -276,7 +284,8 @@ angular.module('jsonFormatter', ['RecursionHelper'])
         json: '=',
         key: '=',
         open: '=',
-        parent: '='
+        parent: '=',
+        model: '='
       },
       compile: function(element) {
 

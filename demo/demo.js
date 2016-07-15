@@ -1,6 +1,6 @@
 var app = angular.module('demo', ['ngSanitize', 'jsonFormatter']);
 
-app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig) {
+app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig, $jsonFormatter, $log) {
 
   $scope.hoverPreviewEnabled = JSONFormatterConfig.hoverPreviewEnabled;
   $scope.hoverPreviewArrayCount = JSONFormatterConfig.hoverPreviewArrayCount;
@@ -18,6 +18,10 @@ app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig) {
   });
   $scope.$watch('elementsSelectable', function(newValue){
     JSONFormatterConfig.elementsSelectable = newValue;
+  });
+
+  $jsonFormatter.register(function(event, data) {
+    $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
   });
 
   $scope.undef = undefined;
