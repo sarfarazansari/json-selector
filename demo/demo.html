@@ -39,9 +39,10 @@
       </p>
       <p>Use <code>&lt;json-formatter&gt;</code> directive</p>
       <p>
-        <pre>&lt;json-formatter open="1" json="{my: 'json'}"&gt;&lt;/json-formatter&gt;</pre>
+        <pre>&lt;json-formatter open="1" json="{my: 'json'} model="mymodel"&gt;&lt;/json-formatter&gt;</pre>
       </p>
       <p><code>open</code> attribute accepts a number that indicated how many levels JSON should be open</p>
+      <p><code>model</code> is an optional attribute to link your model to json formatter. This model should be an array. It will be automatically updated when one more more element(s) are selected/deselected in the JSON.</p>
 
       <h4>Configuration</h4>
       <p>You can set following configurations via <code>JSONFormatterConfig</code> provider.</p>
@@ -76,8 +77,9 @@
       <h4>Demo</h4>
       <div class="tests">
         <div class="result">
-          <json-formatter json="complex" open="1"></json-formatter>
+          <json-formatter json="complex" open="1" model="mymodel"></json-formatter>
         </div>
+        <div class="result" ng-if="elementsSelectable">Selected elements: <code>{{mymodel | json}}</code></div>
       </div>
 
       <h4>Live JSON</h4>

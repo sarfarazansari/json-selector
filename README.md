@@ -28,9 +28,10 @@ JSON Formatter is an AngularJS directive for rendering JSON objects in HTML with
 * Use `<json-formatter>` directive
 
   ```html
-  <json-formatter json="{my: 'json'}" open="1"></json-formatter>
+  <json-formatter json="{my: 'json'}" open="1" model="mymodel"></json-formatter>
   ```
 * `open` attribute accepts a number which indicates how many levels rendered JSON should be opened
+* `model` is an optional attribute to link your model to json formatter. This model should be an array. It will be automatically updated when one more more element(s) are selected/deselected in the JSON.
 
 #### Configuration
 
@@ -42,6 +43,7 @@ Available configurations
 * `hoverPreviewEnabled`: enable preview on hover
 * `hoverPreviewArrayCount`: number of array items to show in preview Any array larger than this number will be shown as `Array[XXX]` where `XXX` is length of the array.
 * `hoverPreviewFieldCount`: number of object properties to show for object preview. Any object with more properties that thin number will be truncated.
+* `elementsSelectable`: enables selection of the JSON elements (using checkboxes)
 
 Example using configuration
 

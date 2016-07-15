@@ -23,13 +23,20 @@ textarea {
 .group {
   padding: 1em;
 }
+
 .result {
   padding: 1em;
   border: 1px solid #eee;
-  margin-bottom: 2em;
   overflow: auto;
 }
 
+.tests > .result:last-child {
+  margin-bottom: 2em;
+}
+
+.tests > .result:not(:first-child) {
+  margin-top: -1px;
+}
 
 .dark {
   background: #333;

@@ -6,6 +6,7 @@ app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig, $jsonFo
   $scope.hoverPreviewArrayCount = JSONFormatterConfig.hoverPreviewArrayCount;
   $scope.hoverPreviewFieldCount = JSONFormatterConfig.hoverPreviewFieldCount;
   $scope.elementsSelectable = JSONFormatterConfig.elementsSelectable;
+  $scope.mymodel = [];
 
   $scope.$watch('hoverPreviewEnabled', function(newValue){
     JSONFormatterConfig.hoverPreviewEnabled = newValue;
