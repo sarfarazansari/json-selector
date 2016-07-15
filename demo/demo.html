@@ -74,6 +74,23 @@
         </li>
       </ul>
 
+      <h4>Events</h4>
+      <p>Every selection/deselection of an element fires <code>element.select</code> and <code>element.deselect</code> events respectively.</p>
+      <p>If you want, you can use <code>$jsonFormatter</code> service to register a listener to these events.</p>
+          <pre>
+// Declare as a dependency in your controller
+app.controller('MainCtrl', function ($log, $jsonFormatter) {
+  // ... your code here
+
+  $jsonFormatter.register(function(event, data) {
+    $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
+  });
+
+  // ... your code here
+
+});</pre>
+
+      <p><code>event</code> will be the name of the event fired, and <code>data</code> will be the expression of the selected item. Open your console and watch it live.</p>
       <h4>Demo</h4>
       <div class="tests">
         <div class="result">

@@ -55,6 +55,24 @@ app.config(function (JSONFormatterConfigProvider) {
 });
 ```
 
+#### Events
+Every selection/deselection of an element fires `element.select` and `element.deselect` events respectively.
+
+If you want, you can use `$jsonFormatter` service to register a listener to these events.
+
+```js
+app.controller('MainCtrl', function ($log, $jsonFormatter) {
+  // ... your code here
+
+  $jsonFormatter.register(function(event, data) {
+    $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
+  });
+
+  // ... your code here
+
+});
+```
+
 ## Demo
 See [Examples here](http://azimi.me/json-formatter/demo/demo.html)
 
