@@ -9,6 +9,9 @@ angular.module('jsonFormatter', ['RecursionHelper'])
   var hoverPreviewArrayCount = 100;
   var hoverPreviewFieldCount = 5;
 
+  // Default value for enable selection config
+  var elementsSelectable = false;
+
   return {
     get hoverPreviewEnabled() {
       return hoverPreviewEnabled;
@@ -31,11 +34,19 @@ angular.module('jsonFormatter', ['RecursionHelper'])
       hoverPreviewFieldCount = parseInt(value, 10);
     },
 
+    get elementsSelectable() {
+      return elementsSelectable;
+    },
+    set elementsSelectable(value) {
+      elementsSelectable = value;
+    },
+
     $get: function () {
       return {
         hoverPreviewEnabled: hoverPreviewEnabled,
         hoverPreviewArrayCount: hoverPreviewArrayCount,
-        hoverPreviewFieldCount: hoverPreviewFieldCount
+        hoverPreviewFieldCount: hoverPreviewFieldCount,
+        elementsSelectable: elementsSelectable
       };
     }
   };
@@ -214,6 +225,10 @@ angular.module('jsonFormatter', ['RecursionHelper'])
 
         return '{' + kvs.join(', ') + ellipsis + '}';
       }
+    };
+    
+    scope.elementsSelectable = function () {
+      return !!JSONFormatterConfig.elementsSelectable;
     };
   }
 

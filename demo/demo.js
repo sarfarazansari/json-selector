@@ -5,6 +5,7 @@ app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig) {
   $scope.hoverPreviewEnabled = JSONFormatterConfig.hoverPreviewEnabled;
   $scope.hoverPreviewArrayCount = JSONFormatterConfig.hoverPreviewArrayCount;
   $scope.hoverPreviewFieldCount = JSONFormatterConfig.hoverPreviewFieldCount;
+  $scope.elementsSelectable = JSONFormatterConfig.elementsSelectable;
 
   $scope.$watch('hoverPreviewEnabled', function(newValue){
     JSONFormatterConfig.hoverPreviewEnabled = newValue;
@@ -14,6 +15,9 @@ app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig) {
   });
   $scope.$watch('hoverPreviewFieldCount', function(newValue){
     JSONFormatterConfig.hoverPreviewFieldCount = newValue;
+  });
+  $scope.$watch('elementsSelectable', function(newValue){
+    JSONFormatterConfig.elementsSelectable = newValue;
   });
 
   $scope.undef = undefined;
