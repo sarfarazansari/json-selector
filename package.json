@@ -1,19 +1,21 @@
 {
-  "name": "jsonformatter",
-  "version": "0.6.0",
-  "description": "Angular Publishable Directive Boilerplate",
-  "main": "dist/json-formatter.js",
-  "repository": "git@github.com:mohsen1/json-formatter.git",
+  "name": "jsonformatterselector",
+  "version": "0.0.1",
+  "description": "An angular directive for formatting JSON objects and selecting elements from it.",
+  "main": "dist/json-formatter.min.js",
+  "repository": "https://github.com/31piy/json-formatter.git",
   "scripts": {
     "test": "./node_modules/gulp/bin/gulp.js test"
   },
   "keywords": [
     "angularjs",
     "angular",
-    "directive"
+    "directive",
+    "jsonformat",
+    "jsonselect"
   ],
   "author": {
-    "name": "Mohsen Azimi"
+    "name": "Piyush Sonagara"
   },
   "license": "Apache-2.0",
   "devDependencies": {
