@@ -1,10 +1,9 @@
-# Angular Directive for JSON Formatter with selectable items
-[![Build Status](https://travis-ci.org/31piy/json-formatter.svg?branch=master)](https://travis-ci.org/31piy/json-formatter)
-[![Code Climate](https://codeclimate.com/github/31piy/json-formatter/badges/gpa.svg)](https://codeclimate.com/github/31piy/json-formatter)
+# JSON Selector: An angular directive to format and select elements from JSON
+[![Build Status](https://travis-ci.org/31piy/json-selector.svg?branch=master)](https://travis-ci.org/31piy/json-selector)
+[![Code Climate](https://codeclimate.com/github/31piy/json-selector/badges/gpa.svg)](https://codeclimate.com/github/31piy/json-selector)
 
-This is a forked repo from https://github.com/mohsen1/json-formatter. Please visit the site for more details about JSON formatter.
-
-This infers the core functions from Mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
+This is a mirror of https://github.com/mohsen1/json-formatter. This directive extends the core functions by adding the
+capability to select JSON elements by checkboxes.
 
 ![Screenshot](./screenshot.png)
 
@@ -13,29 +12,29 @@ This infers the core functions from Mohsen's JSON formatter and adds the capabil
 * Install via Bower or npm
 
   ```bash
-  bower install json-formatter-selector --save
+  bower install json-selector --save
   ```
   ...or
 
   ```bash
-  npm install jsonformatterselector --save
+  npm install jsonselector --save
   ```
-* Add `jsonFormatter` to your app dependencies
+* Add `jsonSelector` to your app dependencies
 
   ```js
-  angular.module('MyApp', ['jsonFormatter'])
+  angular.module('MyApp', ['jsonSelector'])
   ```
-* Use `<json-formatter>` directive
+* Use `<json-selector>` directive
 
   ```html
-  <json-formatter json="{my: 'json'}" open="1" model="mymodel"></json-formatter>
+  <json-selector json="{my: 'json'}" open="1" model="mymodel"></json-formatter>
   ```
 * `open` attribute accepts a number which indicates how many levels rendered JSON should be opened
 * `model` is an optional attribute to link your model to json formatter. This model should be an array. It will be automatically updated when one more more element(s) are selected/deselected in the JSON.
 
 #### Configuration
 
-You can use `JSONFormatterConfig` provider to configure JOSN Formatter.
+You can use `JSONSelectorConfig` provider to configure JSON Selector.
 
 Available configurations
 
@@ -48,23 +47,23 @@ Available configurations
 Example using configuration
 
 ```js
-app.config(function (JSONFormatterConfigProvider) {
+app.config(function (JSONSelectorConfigProvider) {
 
   // Enable the hover preview feature
-  JSONFormatterConfigProvider.hoverPreviewEnabled = true;
+  JSONSelectorConfigProvider.hoverPreviewEnabled = true;
 });
 ```
 
 #### Events
 Every selection/deselection of an element fires `element.select` and `element.deselect` events respectively.
 
-If you want, you can use `$jsonFormatter` service to register a listener to these events.
+If you want, you can use `$jsonSelector` service to register a listener to these events.
 
 ```js
-app.controller('MainCtrl', function ($log, $jsonFormatter) {
+app.controller('MainCtrl', function ($log, $jsonSelector) {
   // ... your code here
 
-  $jsonFormatter.register(function(event, data) {
+  $jsonSelector.register(function(event, data) {
     $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
   });
 
