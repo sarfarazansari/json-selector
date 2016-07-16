@@ -1,10 +1,10 @@
 {
-  "name": "json-formatter-selector",
+  "name": "json-selector",
   "authors": "Piyush Sonagara <piyushsongara@gmail.com>",
-  "description": "JSON Formatter is an AngularJS directive for rendering JSON objects in HTML with a **collapsible** navigation.",
+  "description": "An angular directive for formatting and selecting elements from JSON objects.",
   "main": [
-    "dist/json-formatter.min.js",
-    "dist/json-formatter.min.css"
+    "dist/json-selector.min.js",
+    "dist/json-selector.min.css"
   ],
   "license": "Apache 2.0",
   "keywords": [

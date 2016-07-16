@@ -1,4 +1,4 @@
-<div ng-init="isOpen = open && open > 0" class="json-formatter-row">
+<div ng-init="isOpen = open && open > 0" class="json-selector-row">
   <input class="selector-checkbox" type="checkbox" ng-click="toggleSelectElement()" ng-if="elementsSelectable()">
   <a ng-click="toggleOpen()">
     <span class="toggler {{isOpen ? 'open' : ''}}" ng-if="isObject()"></span>
@@ -15,7 +15,7 @@
     </span>
   </a>
   <div class="children" ng-if="getKeys().length && isOpen">
-    <json-formatter ng-repeat="key in getKeys() track by $index" json="json[key]" key="key" open="childrenOpen()" parent="$parent" model="model"></json-formatter>
+    <json-selector ng-repeat="key in getKeys() track by $index" json="json[key]" key="key" open="childrenOpen()" parent="$parent" model="model"></json-selector>
   </div>
   <div class="children empty object" ng-if="isEmptyObject()"></div>
   <div class="children empty array" ng-if="getKeys() && !getKeys().length && isOpen && isArray()"></div>

@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('jsonFormatter', ['RecursionHelper'])
+angular.module('jsonSelector', ['RecursionHelper'])
 
-.provider('JSONFormatterConfig', function JSONFormatterConfigProvider() {
+.provider('JSONSelectorConfig', function JSONSelectorConfigProvider() {
 
   // Default values for hover preview config
   var hoverPreviewEnabled = false;
@@ -53,7 +53,7 @@ angular.module('jsonFormatter', ['RecursionHelper'])
 })
 
 // Proxy services for events as per http://stackoverflow.com/a/29537535
-.service('$jsonFormatter', [function() {
+.service('$jsonSelector', [function() {
   var listeners = [];
 
   var broadcastEvent = function(event, data) {
@@ -77,8 +77,8 @@ angular.module('jsonFormatter', ['RecursionHelper'])
   };
 }])
 
-.directive('jsonFormatter', ['RecursionHelper', 'JSONFormatterConfig', '$jsonFormatter',
-  function (RecursionHelper, JSONFormatterConfig, $jsonFormatter) {
+.directive('jsonSelector', ['RecursionHelper', 'JSONSelectorConfig', '$jsonSelector',
+  function (RecursionHelper, JSONSelectorConfig, $jsonSelector) {
 
     function escapeString(str) {
       return str.replace('"', '\"');
@@ -205,14 +205,14 @@ angular.module('jsonFormatter', ['RecursionHelper'])
       };
 
       scope.showThumbnail = function () {
-        return !!JSONFormatterConfig.hoverPreviewEnabled && scope.isObject() && !scope.isOpen;
+        return !!JSONSelectorConfig.hoverPreviewEnabled && scope.isObject() && !scope.isOpen;
       };
 
       scope.getThumbnail = function () {
         if (scope.isArray()) {
 
           // if array length is greater then 100 it shows "Array[101]"
-          if (scope.json.length > JSONFormatterConfig.hoverPreviewArrayCount) {
+          if (scope.json.length > JSONSelectorConfig.hoverPreviewArrayCount) {
             return 'Array[' + scope.json.length + ']';
           } else {
             return '[' + scope.json.map(getPreview).join(', ') + ']';
@@ -222,7 +222,7 @@ angular.module('jsonFormatter', ['RecursionHelper'])
           var keys = scope.getKeys();
 
           // the first five keys (like Chrome Developer Tool)
-          var narrowKeys = keys.slice(0, JSONFormatterConfig.hoverPreviewFieldCount);
+          var narrowKeys = keys.slice(0, JSONSelectorConfig.hoverPreviewFieldCount);
 
           // json value schematic information
           var kvs = narrowKeys
@@ -236,7 +236,7 @@ angular.module('jsonFormatter', ['RecursionHelper'])
       };
 
       scope.elementsSelectable = function () {
-        return !!JSONFormatterConfig.elementsSelectable;
+        return !!JSONSelectorConfig.elementsSelectable;
       };
 
       scope.isSelected = !!scope.selected;
@@ -263,13 +263,13 @@ angular.module('jsonFormatter', ['RecursionHelper'])
             scope.model.push(expression);
           }
 
-          $jsonFormatter.select(expression);
+          $jsonSelector.select(expression);
         } else {
           if (angular.isArray(scope.model)) {
             scope.model.splice(scope.model.indexOf(expression), 1);
           }
 
-          $jsonFormatter.deselect(expression);
+          $jsonSelector.deselect(expression);
         }
 
         scope.isSelected = !scope.isSelected;
@@ -277,7 +277,7 @@ angular.module('jsonFormatter', ['RecursionHelper'])
     }
 
     return {
-      templateUrl: 'json-formatter.html',
+      templateUrl: 'json-selector.html',
       restrict: 'E',
       replace: true,
       scope: {
@@ -297,7 +297,7 @@ angular.module('jsonFormatter', ['RecursionHelper'])
 }]);
 
 // Export to CommonJS style imports. Exporting this string makes this valid:
-// angular.module('myApp', [require('jsonformatter')]);
+// angular.module('myApp', [require('jsonSelector')]);
 if (typeof module === 'object') {
-  module.exports = 'jsonFormatter';
+  module.exports = 'jsonSelector';
 }

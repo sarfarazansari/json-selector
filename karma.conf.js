@@ -14,8 +14,8 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-mocks/angular-mocks.js',
 
-      'dist/json-formatter.js',
-      'dist/json-formatter.css',
+      'dist/json-selector.min.js',
+      'dist/json-selector.min.css',
       'test/**/*.spec.js'
     ],
 

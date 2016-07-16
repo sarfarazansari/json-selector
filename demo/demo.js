@@ -1,27 +1,27 @@
-var app = angular.module('demo', ['ngSanitize', 'jsonFormatter']);
+var app = angular.module('demo', ['ngSanitize', 'jsonSelector']);
 
-app.controller('MainCtrl', function ($scope, $http, JSONFormatterConfig, $jsonFormatter, $log) {
+app.controller('MainCtrl', function ($scope, $http, JSONSelectorConfig, $jsonSelector, $log) {
 
-  $scope.hoverPreviewEnabled = JSONFormatterConfig.hoverPreviewEnabled;
-  $scope.hoverPreviewArrayCount = JSONFormatterConfig.hoverPreviewArrayCount;
-  $scope.hoverPreviewFieldCount = JSONFormatterConfig.hoverPreviewFieldCount;
-  $scope.elementsSelectable = JSONFormatterConfig.elementsSelectable;
+  $scope.hoverPreviewEnabled = JSONSelectorConfig.hoverPreviewEnabled;
+  $scope.hoverPreviewArrayCount = JSONSelectorConfig.hoverPreviewArrayCount;
+  $scope.hoverPreviewFieldCount = JSONSelectorConfig.hoverPreviewFieldCount;
+  $scope.elementsSelectable = JSONSelectorConfig.elementsSelectable;
   $scope.mymodel = [];
 
   $scope.$watch('hoverPreviewEnabled', function(newValue){
-    JSONFormatterConfig.hoverPreviewEnabled = newValue;
+    JSONSelectorConfig.hoverPreviewEnabled = newValue;
   });
   $scope.$watch('hoverPreviewArrayCount', function(newValue){
-    JSONFormatterConfig.hoverPreviewArrayCount = newValue;
+    JSONSelectorConfig.hoverPreviewArrayCount = newValue;
   });
   $scope.$watch('hoverPreviewFieldCount', function(newValue){
-    JSONFormatterConfig.hoverPreviewFieldCount = newValue;
+    JSONSelectorConfig.hoverPreviewFieldCount = newValue;
   });
   $scope.$watch('elementsSelectable', function(newValue){
-    JSONFormatterConfig.elementsSelectable = newValue;
+    JSONSelectorConfig.elementsSelectable = newValue;
   });
 
-  $jsonFormatter.register(function(event, data) {
+  $jsonSelector.register(function(event, data) {
     $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
   });
 

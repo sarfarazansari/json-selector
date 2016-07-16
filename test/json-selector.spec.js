@@ -1,13 +1,13 @@
 'use strict';
 
-describe('json-formatter', function () {
-  var scope, $compile, $rootScope, element, fakeModule, JSONFormatterConfig;
+describe('json-selector', function () {
+  var scope, $compile, $rootScope, element, fakeModule, JSONSelectorConfig;
 
   function createDirective(key, open, model) {
     open = open === undefined ? 0 : open;
     var elm;
-    var template = '<json-formatter json="' + key + '" open="' + open +
-        '" model="' + model + '"></json-formatter>';
+    var template = '<json-selector json="' + key + '" open="' + open +
+        '" model="' + model + '"></json-selector>';
 
     elm = angular.element(template);
     angular.element(document.body).prepend(elm);
@@ -15,22 +15,22 @@ describe('json-formatter', function () {
     scope._undefined = undefined;
     scope.number = 42;
     scope._function = function add(a, b) {
-        return a + b;
+      return a + b;
     };
     scope.promiseFunction = function getAdd(service, a) {
-        return service.get(a).then(function (b) {
-            return a + b;
-        });
+      return service.get(a).then(function (b) {
+        return a + b;
+      });
     };
     scope.string = 'Hello world!';
     scope.date = (new Date(0)).toString(); // begging of Unix time
     scope.url = 'https://example.com';
     scope.emptyObject = {};
     scope.emptyObjectWithoutPrototype = Object.create(null);
-    scope.objectWithEmptyKey = {'': 1};
+    scope.objectWithEmptyKey = { '': 1 };
     scope.emptyArray = [];
     scope.array = ['one', 'two', 'three'];
-    scope.simpleObject = {me: 1};
+    scope.simpleObject = { me: 1 };
     scope.longerObject = {
       numbers: [
         1,
@@ -48,9 +48,11 @@ describe('json-formatter', function () {
       string: 'Hello World',
       url: 'https://github.com/mohsen1/json-formatter',
       date: 'Sun Aug 03 2014 20:46:55 GMT-0700 (PDT)',
-      func: function add(a,b){return a + b; }
+      func: function add(a, b) {
+        return a + b;
+      }
     };
-    scope.mixArray = [1, '2', {number: 3}];
+    scope.mixArray = [1, '2', { number: 3 }];
 
     $compile(elm)(scope);
     scope.$digest();
@@ -60,13 +62,14 @@ describe('json-formatter', function () {
 
   beforeEach(function () {
     fakeModule = angular
-      .module('test.jsonFormatter', ['jsonFormatter', 'ngSanitize'])
-      .config(['JSONFormatterConfigProvider', function (_JSONFormatterConfig_) {
-        JSONFormatterConfig = _JSONFormatterConfig_;
-      }]);
-    module('test.jsonFormatter', 'jsonFormatter', 'ngSanitize');
+        .module('test.jsonSelector', ['jsonSelector', 'ngSanitize'])
+        .config(['JSONSelectorConfigProvider', function (_JSONSelectorConfig_) {
+          JSONSelectorConfig = _JSONSelectorConfig_;
+        }]);
+    module('test.jsonSelector', 'jsonSelector', 'ngSanitize');
   });
-  beforeEach(inject(function(_$rootScope_, _$compile_) {
+
+  beforeEach(inject(function (_$rootScope_, _$compile_) {
     $rootScope = _$rootScope_;
     scope = $rootScope.$new();
     $compile = _$compile_;
@@ -74,27 +77,27 @@ describe('json-formatter', function () {
 
   afterEach(function () {
     if (element) {
-        element.remove();
-        element = null;
+      element.remove();
+      element = null;
     }
   });
 
   describe('when created with', function () {
-    describe('null', function(){
+    describe('null', function () {
       it('should render "null"', function () {
         element = createDirective('_null');
         expect(element.text()).toContain('null');
       });
     });
 
-    describe('undefined', function(){
+    describe('undefined', function () {
       it('should render "undefined"', function () {
         element = createDirective('_undefined');
         expect(element.text()).toContain('undefined');
       });
     });
 
-    describe('function', function(){
+    describe('function', function () {
       it('should render the function', function () {
         element = createDirective('_function');
         expect(element.text()).toContain('function');
@@ -104,7 +107,7 @@ describe('json-formatter', function () {
       });
     });
 
-    describe('promiseFunction', function(){
+    describe('promiseFunction', function () {
       it('should render the function', function () {
         element = createDirective('promiseFunction');
         expect(element.text()).toContain('function');
@@ -114,117 +117,117 @@ describe('json-formatter', function () {
       });
     });
 
-    describe('string', function(){
+    describe('string', function () {
       it('should render "Hello world!"', function () {
         element = createDirective('string');
         expect(element.text()).toContain('"Hello world!"');
       });
     });
 
-    describe('date string', function(){
-      beforeEach(function(){
+    describe('date string', function () {
+      beforeEach(function () {
         element = createDirective('date');
       });
       it('should render "' + (new Date(0)).toString() + '"', function () {
         expect(element.text()).toContain('"' + (new Date(0)).toString() + '"');
       });
-      it('should add "date" class to string', function() {
+      it('should add "date" class to string', function () {
         expect(element.find('span.date').length).toBe(1);
       });
     });
 
-    describe('url string', function(){
-      beforeEach(function(){
+    describe('url string', function () {
+      beforeEach(function () {
         element = createDirective('url');
       });
       it('should render "https://example.com"', function () {
         expect(element.text()).toContain('"https://example.com"');
       });
-      it('should add "url" class to string', function() {
+      it('should add "url" class to string', function () {
         expect(element.find('span.url').length).toBe(1);
       });
     });
 
-    describe('empty object', function(){
+    describe('empty object', function () {
       testEmptyObject('emptyObject');
     });
 
-    describe('empty object without prototype: Object.create(null)', function(){
+    describe('empty object without prototype: Object.create(null)', function () {
       testEmptyObject('emptyObjectWithoutPrototype');
     });
 
     // DRY for testing empty objects
     function testEmptyObject(key) {
-      describe('with open="0"', function() {
-        beforeEach(function(){
+      describe('with open="0"', function () {
+        beforeEach(function () {
           element = createDirective(key);
         });
-        it('should render "Object"', function() {
+        it('should render "Object"', function () {
           expect(element.text()).toContain('Object');
         });
       });
-      describe('with open="1"', function() {
-        beforeEach(function(){
+      describe('with open="1"', function () {
+        beforeEach(function () {
           element = createDirective(key, 1);
         });
-        it('should render "Object"', function() {
+        it('should render "Object"', function () {
           expect(element.text()).toContain('Object');
         });
-        it('should render have toggler opened', function() {
+        it('should render have toggler opened', function () {
           expect(element.find('.toggler').hasClass('open')).toBe(true);
         });
       });
     }
 
-    describe('object with empty key', function(){
-      beforeEach(function(){
+    describe('object with empty key', function () {
+      beforeEach(function () {
         element = createDirective('objectWithEmptyKey', 1);
       });
 
-      it('should render "" for key', function(){
+      it('should render "" for key', function () {
         debugger
         expect(element.find('.key').text()).toContain('""');
       });
     });
 
-    describe('empty array', function(){
-      beforeEach(function(){
+    describe('empty array', function () {
+      beforeEach(function () {
         element = createDirective('emptyArray');
       });
-      it('should render "Array"', function(){
+      it('should render "Array"', function () {
         expect(element.text()).toContain('Array');
       });
-      it('should have brackets and length: [0]', function(){
+      it('should have brackets and length: [0]', function () {
         expect(element.text()).toContain('[0]');
       });
     });
 
-    describe('array', function(){
-      beforeEach(function(){
+    describe('array', function () {
+      beforeEach(function () {
         element = createDirective('array');
       });
-      it('should render "Array"', function(){
+      it('should render "Array"', function () {
         expect(element.text()).toContain('Array');
       });
-      it('should have brackets and length: [3]', function(){
+      it('should have brackets and length: [3]', function () {
         expect(element.text()).toContain('[3]');
       });
     });
 
-    describe('object', function(){
-      beforeEach(function(){
+    describe('object', function () {
+      beforeEach(function () {
         element = createDirective('simpleObject');
       });
-      it('should render "Object"', function(){
+      it('should render "Object"', function () {
         expect(element.text()).toContain('Object');
       });
-      it('should open when clicking on "Object"', function(){
+      it('should open when clicking on "Object"', function () {
         element.find('.constructor-name').click();
         expect(element.find('.toggler').hasClass('open')).toBe(true);
       });
     });
 
-    describe('hover preview', function() {
+    describe('hover preview', function () {
 
       it('default is disabled', function () {
         element = createDirective('mixArray');
@@ -233,7 +236,7 @@ describe('json-formatter', function () {
 
       describe('set enable', function () {
         beforeEach(function () {
-          JSONFormatterConfig.hoverPreviewEnabled = true;
+          JSONSelectorConfig.hoverPreviewEnabled = true;
         });
 
         it('should render "simple object"', function () {
@@ -259,16 +262,16 @@ describe('json-formatter', function () {
 
     });
 
-    describe('elements selectable', function() {
+    describe('elements selectable', function () {
 
       it('default is disabled', function () {
         element = createDirective('mixArray');
         expect(element.find('.selector-checkbox').length).toBe(0);
       });
 
-      describe('if enabled', function() {
+      describe('if enabled', function () {
         beforeEach(function () {
-          JSONFormatterConfig.elementsSelectable = true;
+          JSONSelectorConfig.elementsSelectable = true;
         });
 
         it('should render "simple object"', function () {
@@ -291,13 +294,13 @@ describe('json-formatter', function () {
           expect(element.find('.selector-checkbox').length).toBe(5);
         });
 
-        describe('on selecting elements', function() {
+        describe('on selecting elements', function () {
           beforeEach(function () {
             scope.model = [];
-            JSONFormatterConfig.elementsSelectable = true;
+            JSONSelectorConfig.elementsSelectable = true;
           });
 
-          it('should add expressions to the model', function() {
+          it('should add expressions to the model', function () {
             element = createDirective('longerObject', 1000, 'model');
             element.find('.selector-checkbox:eq(10)').click();
             element.find('.selector-checkbox:eq(3)').click();
@@ -309,13 +312,13 @@ describe('json-formatter', function () {
           });
         });
 
-        describe('on deselecting elements', function() {
+        describe('on deselecting elements', function () {
           beforeEach(function () {
             scope.model = [];
-            JSONFormatterConfig.elementsSelectable = true;
+            JSONSelectorConfig.elementsSelectable = true;
           });
 
-          it('should remove expressions from the model', function() {
+          it('should remove expressions from the model', function () {
             element = createDirective('longerObject', 1000, 'model');
             element.find('.selector-checkbox').click();
             element.find('.selector-checkbox:eq(10)').click();

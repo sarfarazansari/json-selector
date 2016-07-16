@@ -62,15 +62,15 @@ gulp.task('scripts', function() {
              spare: true,
              quotes: true
             }))
-      .pipe(templateCache({module: 'jsonFormatter'}));
+      .pipe(templateCache({module: 'jsonSelector'}));
   };
 
   function buildDistJS(){
     return gulp.src([
-      'src/json-formatter.js',
+      'src/json-selector.js',
       'src/recursion-helper.js'
       ])
-      .pipe(concat('json-formatter.js'))
+      .pipe(concat('json-selector.js'))
       .pipe(plumber({
         errorHandler: handleError
       }))
@@ -84,10 +84,10 @@ gulp.task('scripts', function() {
       errorHandler: handleError
     }))
     .pipe(order([
-      'json-formatter.js',
-      'json-formatter.html'
+      'json-selector.js',
+      'json-selector.html'
     ]))
-    .pipe(concat('json-formatter.js'))
+    .pipe(concat('json-selector.js'))
     .pipe(header(config.banner, {
       timestamp: (new Date()).toISOString(), pkg: config.pkg
     }))
@@ -104,7 +104,7 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
 
-  return gulp.src('src/json-formatter.less')
+  return gulp.src('src/json-selector.less')
     .pipe(less())
     .pipe(header(config.banner, {
       timestamp: (new Date()).toISOString(), pkg: config.pkg

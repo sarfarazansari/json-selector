@@ -1,9 +1,9 @@
 {
-  "name": "jsonformatterselector",
-  "version": "0.0.2",
-  "description": "An angular directive for formatting JSON objects and selecting elements from it.",
-  "main": "dist/json-formatter.min.js",
-  "repository": "https://github.com/31piy/json-formatter.git",
+  "name": "jsonselector",
+  "version": "0.0.1",
+  "description": "An angular directive for formatting and selecting elements from JSON objects.",
+  "main": "dist/json-selector.min.js",
+  "repository": "https://github.com/31piy/json-selector.git",
   "scripts": {
     "test": "./node_modules/gulp/bin/gulp.js test"
   },
@@ -11,8 +11,8 @@
     "angularjs",
     "angular",
     "directive",
-    "jsonformat",
-    "jsonselect"
+    "json format",
+    "json select"
   ],
   "author": {
     "name": "Piyush Sonagara"
