@@ -5,6 +5,7 @@
 This is a forked repo from https://github.com/mohsen1/json-formatter. Please visit the site for more details about JSON formatter.
 
 This infers the core functions from mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
+
 ![Screenshot](./screenshot.png)
 
 ## Usage
