@@ -1,12 +1,12 @@
-# JSON Formatter
-[![Build Status](https://travis-ci.org/mohsen1/json-formatter.svg?branch=master)](https://travis-ci.org/mohsen1/json-formatter)
-[![Code Climate](https://codeclimate.com/github/mohsen1/json-formatter/badges/gpa.svg)](https://codeclimate.com/github/mohsen1/json-formatter)
+# Angular Directive for JSON Formatter with selectable items
+[![Build Status](https://travis-ci.org/31piy/json-formatter.svg?branch=master)](https://travis-ci.org/31piy/json-formatter)
+[![Code Climate](https://codeclimate.com/github/31piy/json-formatter/badges/gpa.svg)](https://codeclimate.com/github/31piy/json-formatter)
 
-JSON Formatter is an AngularJS directive for rendering JSON objects in HTML with a **collapsible** navigation.
+This is a forked repo from https://github.com/mohsen1/json-formatter. Please visit the site for more details about JSON formatter.
+
+This refers the core functions from mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
 
 [![Screebshot](./screenshot.png)](http://azimi.me/json-formatter/demo/demo.html)
-
-#### [Now also available in pure JavaScript with zero dependency!](https://github.com/mohsen1/json-formatter-js)
 
 ## Usage
 
