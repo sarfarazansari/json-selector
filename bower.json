@@ -1,11 +1,10 @@
 {
-  "name": "json-formatter",
-  "version": "0.6.0",
-  "authors": "Mohsen Azimi <msn.azi@gmail.com>",
+  "name": "json-formatter-selector",
+  "authors": "Piyush Sonagara <piyushsongara@gmail.com>",
   "description": "JSON Formatter is an AngularJS directive for rendering JSON objects in HTML with a **collapsible** navigation.",
   "main": [
-    "dist/json-formatter.js",
-    "dist/json-formatter.css"
+    "dist/json-formatter.min.js",
+    "dist/json-formatter.min.css"
   ],
   "license": "Apache 2.0",
   "keywords": [
@@ -13,7 +12,8 @@
     "formatter",
     "collapsible",
     "json to HTML",
-    "JSON"
+    "JSON",
+    "JSON selector"
   ],
   "ignore": [
     "**/.*",
