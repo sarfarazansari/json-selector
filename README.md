@@ -4,7 +4,7 @@
 
 This is a forked repo from https://github.com/mohsen1/json-formatter. Please visit the site for more details about JSON formatter.
 
-This infers the core functions from mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
+This infers the core functions from Mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
 
 ![Screenshot](./screenshot.png)
 
@@ -13,12 +13,12 @@ This infers the core functions from mohsen's JSON formatter and adds the capabil
 * Install via Bower or npm
 
   ```bash
-  bower install json-formatter --save
+  bower install json-formatter-selector --save
   ```
   ...or
 
   ```bash
-  npm install jsonformatter --save
+  npm install jsonformatterselector --save
   ```
 * Add `jsonFormatter` to your app dependencies
 
@@ -85,4 +85,4 @@ All modern browsers are supported. Lowest supported version of Internet Explorer
 
 Apache 2.0
 
-See [LICENSE](./LICENSE)
+See [LICENSE](./LICENSE.md)
