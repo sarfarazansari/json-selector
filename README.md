@@ -4,9 +4,8 @@
 
 This is a forked repo from https://github.com/mohsen1/json-formatter. Please visit the site for more details about JSON formatter.
 
-This refers the core functions from mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
-
-[![Screebshot](./screenshot.png)](http://azimi.me/json-formatter/demo/demo.html)
+This infers the core functions from mohsen's JSON formatter and adds the capability to select JSON elements by checkboxes.
+![Screenshot](./screenshot.png)
 
 ## Usage
 
@@ -72,10 +71,6 @@ app.controller('MainCtrl', function ($log, $jsonFormatter) {
 
 });
 ```
-
-## Demo
-See [Examples here](http://azimi.me/json-formatter/demo/demo.html)
-
 
 ## Known Bugs
 ##### `hashKey`
