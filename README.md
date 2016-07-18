@@ -27,10 +27,10 @@ capability to select JSON elements by checkboxes.
 * Use `<json-selector>` directive
 
   ```html
-  <json-selector json="{my: 'json'}" open="1" model="mymodel"></json-formatter>
+  <json-selector json="{my: 'json'}" open="1" identifier="mymodel"></json-formatter>
   ```
 * `open` attribute accepts a number which indicates how many levels rendered JSON should be opened
-* `model` is an optional attribute to link your model to json formatter. This model should be an array. It will be automatically updated when one more more element(s) are selected/deselected in the JSON.
+* `identifier` is an optional attribute. This value will be sent in the event object. You can use it to uniquely identify your element when an event is triggered.
 
 #### Configuration
 
@@ -71,6 +71,8 @@ app.controller('MainCtrl', function ($log, $jsonSelector) {
 
 });
 ```
+
+`event` will be the name of the event fired, and `data` will contain the expression of the selected item, and identifier of the object, if defined. Open your console and watch it live.
 
 ## Known Bugs
 ##### `hashKey`

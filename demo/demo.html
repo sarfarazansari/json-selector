@@ -7,11 +7,12 @@
   <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="../dist/json-selector.min.css"></div>
+  <link rel="stylesheet" href="../dist/json-selector.min.css">
+  </div>
   <link rel="stylesheet" href="demo.css">
 </head>
 <body ng-controller="MainCtrl">
-  <div class="container">
+<div class="container">
   <div class="header">
     <ul class="nav nav-pills pull-right">
       <li class="active"><a ng-href="https://github.com/mohsen1/json-selector">Code in GitHub</a></li>
@@ -19,9 +20,9 @@
     <h1 class="text-muted">&lt;json-selector&gt;</h1>
     <p>
       <iframe src="http://ghbtns.com/github-btn.html?user=mohsen1&repo=json-selector&type=watch&size=large&count=true"
-      allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+              allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
       <iframe src="http://ghbtns.com/github-btn.html?user=mohsen1&repo=json-selector&type=fork&size=large&count=true"
-      allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+              allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
     </p>
   </div>
 
@@ -31,52 +32,55 @@
       An angular directive for formatting and selecting elements from JSON objects.
     </p>
     <h4>How to use</h4>
-    <p>Install via Bower<p>
-      <p><code>bower install json-selector --save</code></p>
-      <p>Add <code>jsonSelector</code> to your app dependencies</p>
-      <p>
-        <pre>angular.module('myApp', ['jsonSelector'])</pre>
-      </p>
-      <p>Use <code>&lt;json-selector&gt;</code> directive</p>
-      <p>
-        <pre>&lt;json-selector open="1" json="{my: 'json'} model="mymodel"&gt;&lt;/json-selector&gt;</pre>
-      </p>
-      <p><code>open</code> attribute accepts a number that indicated how many levels JSON should be open</p>
-      <p><code>model</code> is an optional attribute to link your model to json selector. This model should be an array. It will be automatically updated when one more more element(s) are selected/deselected in the JSON.</p>
+    <p>Install via Bower
+    <p>
+    <p><code>bower install json-selector --save</code></p>
+    <p>Add <code>jsonSelector</code> to your app dependencies</p>
+    <p>
+    <pre>angular.module('myApp', ['jsonSelector'])</pre>
+    </p>
+    <p>Use <code>&lt;json-selector&gt;</code> directive</p>
+    <p>
+    <pre>&lt;json-selector open="1" json="{my: 'json'} model="mymodel"&gt;&lt;/json-selector&gt;</pre>
+    </p>
+    <p><code>open</code> attribute accepts a number that indicated how many levels JSON should be open</p>
+    <p><code>identifier</code> is an optional attribute. This value will be sent in the event object. You can use it to
+      uniquely identify your element when an event is triggered.</p>
 
-      <h4>Configuration</h4>
-      <p>You can set following configurations via <code>JSONSelectorConfig</code> provider.</p>
-      <p>Changing these configurations will impact all demos</p>
-      <ul>
-        <li>
-          <label>
-            <code>hoverPreviewEnabled</code>
-            <input type="checkbox" ng-model="hoverPreviewEnabled">
-          </label>
-        </li>
-        <li>
-          <label>
-            <code>hoverPreviewArrayCount</code>
-            <input type="number" ng-model="hoverPreviewArrayCount" ng-disabled="!hoverPreviewEnabled">
-          </label>
-        </li>
-        <li>
-          <label>
-            <code>hoverPreviewFieldCount</code>
-            <input type="number" ng-model="hoverPreviewFieldCount" ng-disabled="!hoverPreviewEnabled">
-          </label>
-        </li>
-        <li>
-          <label>
-            <code>elementsSelectable</code>
-            <input type="checkbox" ng-model="elementsSelectable">
-          </label>
-        </li>
-      </ul>
+    <h4>Configuration</h4>
+    <p>You can set following configurations via <code>JSONSelectorConfig</code> provider.</p>
+    <p>Changing these configurations will impact all demos</p>
+    <ul>
+      <li>
+        <label>
+          <code>hoverPreviewEnabled</code>
+          <input type="checkbox" ng-model="hoverPreviewEnabled">
+        </label>
+      </li>
+      <li>
+        <label>
+          <code>hoverPreviewArrayCount</code>
+          <input type="number" ng-model="hoverPreviewArrayCount" ng-disabled="!hoverPreviewEnabled">
+        </label>
+      </li>
+      <li>
+        <label>
+          <code>hoverPreviewFieldCount</code>
+          <input type="number" ng-model="hoverPreviewFieldCount" ng-disabled="!hoverPreviewEnabled">
+        </label>
+      </li>
+      <li>
+        <label>
+          <code>elementsSelectable</code>
+          <input type="checkbox" ng-model="elementsSelectable">
+        </label>
+      </li>
+    </ul>
 
-      <h4>Events</h4>
-      <p>Every selection/deselection of an element fires <code>element.select</code> and <code>element.deselect</code> events respectively.</p>
-      <p>If you want, you can use <code>$jsonSelector</code> service to register a listener to these events.</p>
+    <h4>Events</h4>
+    <p>Every selection/deselection of an element fires <code>element.select</code> and <code>element.deselect</code>
+      events respectively.</p>
+    <p>If you want, you can use <code>$jsonSelector</code> service to register a listener to these events.</p>
           <pre>
 // Declare as a dependency in your controller
 app.controller('MainCtrl', function ($log, $jsonSelector) {
@@ -90,104 +94,105 @@ app.controller('MainCtrl', function ($log, $jsonSelector) {
 
 });</pre>
 
-      <p><code>event</code> will be the name of the event fired, and <code>data</code> will be the expression of the selected item. Open your console and watch it live.</p>
-      <h4>Demo</h4>
-      <div class="tests">
-        <div class="result">
-          <json-selector json="complex" open="1" model="mymodel"></json-selector>
-        </div>
-        <div class="result" ng-if="elementsSelectable">Selected elements: <code>{{mymodel | json}}</code></div>
-      </div>
-
-      <h4>Live JSON</h4>
+    <p><code>event</code> will be the name of the event fired, and <code>data</code> will contain the expression of the
+      selected item, and identifier of the object, if defined. Open your console and watch it live.</p>
+    <h4>Demo</h4>
+    <div class="tests">
       <div class="result">
-          <textarea ng-model="textarea" class="col-xs-6"></textarea>
-          <div class="col-xs-6">
-              <json-selector json="textareaJson" open="1"></json-selector>
-          </div>
+        <json-selector json="complex" open="1" identifier="mymodel"></json-selector>
       </div>
+      <div class="result" ng-if="elementsSelectable">Selected elements: <code>{{mymodel | json}}</code></div>
+    </div>
 
-      <h4 id="examples">Other Examples</h4>
-      <div class="tests">
-        <div class="group">
+    <h4>Live JSON</h4>
+    <div class="result">
+      <textarea ng-model="textarea" class="col-xs-6"></textarea>
+      <div class="col-xs-6">
+        <json-selector json="textareaJson" open="1"></json-selector>
+      </div>
+    </div>
 
-          <h4>Null</h4>
-          <div class="result">
-            <json-selector open="1" json='null'></json-selector>
-          </div>
+    <h4 id="examples">Other Examples</h4>
+    <div class="tests">
+      <div class="group">
 
-          <h4>Undefined</h4>
-          <div class="result">
-            <json-selector open="1" json='undef'></json-selector>
-          </div>
+        <h4>Null</h4>
+        <div class="result">
+          <json-selector open="1" json='null'></json-selector>
+        </div>
 
-          <h4>Number</h4>
-          <div class="result">
-            <json-selector open="1" json='42'></json-selector>
-          </div>
+        <h4>Undefined</h4>
+        <div class="result">
+          <json-selector open="1" json='undef'></json-selector>
+        </div>
 
-          <h4>String</h4>
-          <div class="result">
-            <json-selector open="1" json='"Hello world!"'></json-selector>
-          </div>
+        <h4>Number</h4>
+        <div class="result">
+          <json-selector open="1" json='42'></json-selector>
+        </div>
 
-          <h4>Date String</h4>
-          <div class="result">
-            <json-selector open="1" json='"Sun Aug 03 2014 15:03:26 GMT-0700 (PDT)"'></json-selector>
-          </div>
+        <h4>String</h4>
+        <div class="result">
+          <json-selector open="1" json='"Hello world!"'></json-selector>
+        </div>
 
-          <h4>URL String</h4>
-          <div class="result">
-            <json-selector open="1" json='"https://github.com/mohsen1/json-selector"'></json-selector>
-          </div>
+        <h4>Date String</h4>
+        <div class="result">
+          <json-selector open="1" json='"Sun Aug 03 2014 15:03:26 GMT-0700 (PDT)"'></json-selector>
+        </div>
 
-          <h4>Function</h4>
-          <div class="result">
-            <json-selector open="1" json="fn"></json-selector>
-          </div>
+        <h4>URL String</h4>
+        <div class="result">
+          <json-selector open="1" json='"https://github.com/mohsen1/json-selector"'></json-selector>
+        </div>
 
-          <h4>Empty object</h4>
-          <div class="result">
-            <json-selector open="1" json="{}"></json-selector>
-          </div>
+        <h4>Function</h4>
+        <div class="result">
+          <json-selector open="1" json="fn"></json-selector>
+        </div>
 
-          <h4>Empty array</h4>
-          <div class="result">
-            <json-selector open="1" json="[]"></json-selector>
-          </div>
+        <h4>Empty object</h4>
+        <div class="result">
+          <json-selector open="1" json="{}"></json-selector>
+        </div>
 
-          <h4>Object with one key</h4>
-          <div class="result">
-            <json-selector open="1" json="{me: 1}"></json-selector>
-          </div>
+        <h4>Empty array</h4>
+        <div class="result">
+          <json-selector open="1" json="[]"></json-selector>
+        </div>
 
-          <h4>Nested Object</h4>
-          <div class="result">
-            <json-selector open="1" json="{me: {you: 2}}"></json-selector>
-          </div>
+        <h4>Object with one key</h4>
+        <div class="result">
+          <json-selector open="1" json="{me: 1}"></json-selector>
+        </div>
 
-          <h4>Array</h4>
-          <div class="result">
-            <json-selector open="1" json="['one', 'two', 'three']"></json-selector>
-          </div>
+        <h4>Nested Object</h4>
+        <div class="result">
+          <json-selector open="1" json="{me: {you: 2}}"></json-selector>
+        </div>
 
-          <h4>Complex Object</h4>
-          <div class="result">
-            <json-selector open="1" json='complex'></json-selector>
-          </div>
+        <h4>Array</h4>
+        <div class="result">
+          <json-selector open="1" json="['one', 'two', 'three']"></json-selector>
+        </div>
 
-          <h4>Object with long key</h4>
-          <div class="result">
-            <json-selector open="1" json ='{
+        <h4>Complex Object</h4>
+        <div class="result">
+          <json-selector open="1" json='complex'></json-selector>
+        </div>
+
+        <h4>Object with long key</h4>
+        <div class="result">
+          <json-selector open="1" json='{
             "a_very_llllllllllllllllllllllllllllllllong_key": {m3:1},
           }
           '></json-selector>
-          </div>
+        </div>
 
-          <h4>Object with empty key</h4>
-          <div class="result">
-            <json-selector open="1" json ='{"": {m3:1},}'></json-selector>
-          </div>
+        <h4>Object with empty key</h4>
+        <div class="result">
+          <json-selector open="1" json='{"": {m3:1},}'></json-selector>
+        </div>
 
         <h4>Dates</h4>
         <div class="result">
@@ -196,85 +201,87 @@ app.controller('MainCtrl', function ($log, $jsonSelector) {
           "newDate": "Sun Aug 03 2014 14:44:46 GMT-0700 (PDT)",
           "Date.now": 1407102492243
         }'></json-selector>
-      </div>
+        </div>
 
-      <h4>Long String content</h4>
-      <div class="result">
-        <json-selector open="1" json='{
+        <h4>Long String content</h4>
+        <div class="result">
+          <json-selector open="1" json='{
         "long": "Slow-carb hella vegan, Bushwick flexitarian Portland roof party photo booth forage. Fixie try-hard gastropub Etsy single-origin coffee bitters. Crucifix sartorial squid, bitters chillwave before they sold out farm-to-table mustache direct trade \ndeep v bicycle rights Austin bespoke. Odd Future sriracha Thundercats whatever pork belly Marfa, mumblecore gluten-free dreamcatcher. Dreamcatcher next level polaroid mustache fap gentrify typewriter. PBR Shoreditch cred, pug narwhal slow-carb seitan. Bushwick +1 banjo, chia flexitarian keytar retro PBR&B cred."
       }'></json-selector>
-    </div>
+        </div>
 
-    <h4>HTML content</h4>
-    <div class="result">
-      <json-selector open="1" json='{html: "<h1>H1 Heading</h1>"}'></json-selector>
-    </div>
+        <h4>HTML content</h4>
+        <div class="result">
+          <json-selector open="1" json='{html: "<h1>H1 Heading</h1>"}'></json-selector>
+        </div>
 
-    <h4>Opened 1 level</h4>
-    <div class="result">
-      <json-selector json='deep' open=""></json-selector>
-    </div>
+        <h4>Opened 1 level</h4>
+        <div class="result">
+          <json-selector json='deep' open=""></json-selector>
+        </div>
 
-    <h4>Opened 2 level</h4>
-    <div class="result">
-      <json-selector json='deep' open="2"></json-selector>
-    </div>
+        <h4>Opened 2 level</h4>
+        <div class="result">
+          <json-selector json='deep' open="2"></json-selector>
+        </div>
 
-    <h4>Opened 3 level</h4>
-    <div class="result">
-      <json-selector json='deep' open="3"></json-selector>
-    </div>
+        <h4>Opened 3 level</h4>
+        <div class="result">
+          <json-selector json='deep' open="3"></json-selector>
+        </div>
 
-    <h4>Opened 4 level</h4>
-    <div class="result">
-      <json-selector json='deep' open="4"></json-selector>
-    </div>
+        <h4>Opened 4 level</h4>
+        <div class="result">
+          <json-selector json='deep' open="4"></json-selector>
+        </div>
 
-    <h4>Custom constructors</h4>
-    <div class="result">
-      <json-selector open="1" json='person'></json-selector>
-    </div>
+        <h4>Custom constructors</h4>
+        <div class="result">
+          <json-selector open="1" json='person'></json-selector>
+        </div>
 
-    <h4><code>ng-repeat</code></h4>
-    <p>If you are iterating in an array of objects, make sure you are using <code>track by $index</code> to avoid adding extra <code>$$hashKey</code> to your objects.</p>
-    <h5>With <code>track by $index</code></h5>
-    <div class="result">
-      <json-selector ng-repeat="item in randArray1 track by $index" json="item"></json-selector>
-    </div>
-    <h5>Without <code>track by $index</code></h5>
-    <div class="result">
-      <json-selector ng-repeat="item in randArray2" json="item"></json-selector>
-    </div>
+        <h4><code>ng-repeat</code></h4>
+        <p>If you are iterating in an array of objects, make sure you are using <code>track by $index</code> to avoid
+          adding extra <code>$$hashKey</code> to your objects.</p>
+        <h5>With <code>track by $index</code></h5>
+        <div class="result">
+          <json-selector ng-repeat="item in randArray1 track by $index" json="item"></json-selector>
+        </div>
+        <h5>Without <code>track by $index</code></h5>
+        <div class="result">
+          <json-selector ng-repeat="item in randArray2" json="item"></json-selector>
+        </div>
 
-    <h4>Dark theme</h4>
-    <p>To use dark theme add <code>json-selector-dark</code> class this directive. Note that <code>json-selector-dark</code> class make text and other elements lighter so they look good on a dark background.</p>
-    <div class="result dark">
-      <json-selector open="1" json='complex' class="json-selector-dark"></json-selector>
-    </div>
+        <h4>Dark theme</h4>
+        <p>To use dark theme add <code>json-selector-dark</code> class this directive. Note that <code>json-selector-dark</code>
+          class make text and other elements lighter so they look good on a dark background.</p>
+        <div class="result dark">
+          <json-selector open="1" json='complex' class="json-selector-dark"></json-selector>
+        </div>
 
-    <h4>Altering JSON object</h4>
-    <label>
-      <input type="checkbox" ng-model="c">
-      <span>Alternate <code>json</code></span>
-    </label>
-    <div class="result">
-      <json-selector json="c ? alternate1 : alternate2" open="1"></json-selector>
-    </div>
+        <h4>Altering JSON object</h4>
+        <label>
+          <input type="checkbox" ng-model="c">
+          <span>Alternate <code>json</code></span>
+        </label>
+        <div class="result">
+          <json-selector json="c ? alternate1 : alternate2" open="1"></json-selector>
+        </div>
 
-    <h4>Giant JSON</h4>
-    <p>(for performance testing)</p>
-    <label>
-      <button ng-click="fetchGiantJSON()">Fetch</button>
-    </label>
-    <div class="result" ng-init="giantOpen = 1;">
-      <json-selector json="giant" open="100"></json-selector>
+        <h4>Giant JSON</h4>
+        <p>(for performance testing)</p>
+        <label>
+          <button ng-click="fetchGiantJSON()">Fetch</button>
+        </label>
+        <div class="result" ng-init="giantOpen = 1;">
+          <json-selector json="giant" open="100"></json-selector>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
-<div class="footer">
-  <p>License Apache 2</p>
-</div>
+  <div class="footer">
+    <p>License Apache 2</p>
+  </div>
 
 </div>
 <script src="../dist/json-selector.min.js"></script>

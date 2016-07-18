@@ -15,7 +15,7 @@
     </span>
   </a>
   <div class="children" ng-if="getKeys().length && isOpen">
-    <json-selector ng-repeat="key in getKeys() track by $index" json="json[key]" key="key" open="childrenOpen()" parent="$parent" model="model"></json-selector>
+    <json-selector ng-repeat="key in getKeys() track by $index" json="json[key]" key="key" open="childrenOpen()" parent="$parent" identifier="{{identifier}}"></json-selector>
   </div>
   <div class="children empty object" ng-if="isEmptyObject()"></div>
   <div class="children empty array" ng-if="getKeys() && !getKeys().length && isOpen && isArray()"></div>
