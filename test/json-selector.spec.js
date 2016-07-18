@@ -3,7 +3,7 @@
 describe('json-selector', function () {
   var scope, $compile, $rootScope, element, fakeModule, JSONSelectorConfig;
 
-  function createDirective(key, open, model) {
+  function createDirective(key, open, identifier) {
     open = open === undefined ? 0 : open;
     var elm;
     var template = '<json-selector json="' + key + '" open="' + open +

@@ -145,9 +145,6 @@ angular.module('jsonSelector', ['RecursionHelper'])
         }
 
         function link(scope) {
-
-          console.log(scope.identifier);
-
           scope.isArray = function () {
             return angular.isArray(scope.json);
           };

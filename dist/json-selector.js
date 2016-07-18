@@ -1,7 +1,7 @@
 /*!
  * jsonselector
  * 
- * Version: 1.0.0 - 2016-07-18T05:57:07.705Z
+ * Version: 1.0.0 - 2016-07-18T05:59:08.975Z
  * License: Apache-2.0
  */
 
@@ -153,9 +153,6 @@ angular.module('jsonSelector', ['RecursionHelper'])
         }
 
         function link(scope) {
-
-          console.log(scope.identifier);
-
           scope.isArray = function () {
             return angular.isArray(scope.json);
           };
