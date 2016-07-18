@@ -7,7 +7,7 @@ describe('json-selector', function () {
     open = open === undefined ? 0 : open;
     var elm;
     var template = '<json-selector json="' + key + '" open="' + open +
-        '" model="' + model + '"></json-selector>';
+        '" identifier="' + identifier + '"></json-selector>';
 
     elm = angular.element(template);
     angular.element(document.body).prepend(elm);
@@ -292,43 +292,6 @@ describe('json-selector', function () {
         it('should render "mixArray"', function () {
           element = createDirective('mixArray', 1000);
           expect(element.find('.selector-checkbox').length).toBe(5);
-        });
-
-        describe('on selecting elements', function () {
-          beforeEach(function () {
-            scope.model = [];
-            JSONSelectorConfig.elementsSelectable = true;
-          });
-
-          it('should add expressions to the model', function () {
-            element = createDirective('longerObject', 1000, 'model');
-            element.find('.selector-checkbox:eq(10)').click();
-            element.find('.selector-checkbox:eq(3)').click();
-            element.find('.selector-checkbox:eq(1)').click();
-            expect(scope.model.length).toBe(3);
-            expect(scope.model.indexOf('.anObject.c')).toBe(0);
-            expect(scope.model.indexOf('.numbers[1]')).toBe(1);
-            expect(scope.model.indexOf('.numbers')).toBe(2);
-          });
-        });
-
-        describe('on deselecting elements', function () {
-          beforeEach(function () {
-            scope.model = [];
-            JSONSelectorConfig.elementsSelectable = true;
-          });
-
-          it('should remove expressions from the model', function () {
-            element = createDirective('longerObject', 1000, 'model');
-            element.find('.selector-checkbox').click();
-            element.find('.selector-checkbox:eq(10)').click();
-            element.find('.selector-checkbox:eq(3)').click();
-            element.find('.selector-checkbox:eq(1)').click();
-            expect(scope.model.length).toBe(13);
-            expect(scope.model.indexOf('.anObject.c')).toBe(-1);
-            expect(scope.model.indexOf('.numbers[1]')).toBe(-1);
-            expect(scope.model.indexOf('.numbers')).toBe(-1);
-          });
         });
       });
     });
