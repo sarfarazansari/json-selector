@@ -1,6 +1,6 @@
 {
   "name": "jsonselector",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An angular directive for formatting and selecting elements from JSON objects.",
   "main": "dist/json-selector.min.js",
   "repository": "https://github.com/31piy/json-selector.git",
