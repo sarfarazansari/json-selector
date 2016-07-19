@@ -48,36 +48,6 @@
       uniquely identify your element when an event is triggered.</p>
     <p><code>allow-root-select</code> is an option attribute which allows/denies selecting of root element.</p>
 
-    <h4>Configuration</h4>
-    <p>You can set following configurations via <code>JSONSelectorConfig</code> provider.</p>
-    <p>Changing these configurations will impact all demos</p>
-    <ul>
-      <li>
-        <label>
-          <code>hoverPreviewEnabled</code>
-          <input type="checkbox" ng-model="hoverPreviewEnabled">
-        </label>
-      </li>
-      <li>
-        <label>
-          <code>hoverPreviewArrayCount</code>
-          <input type="number" ng-model="hoverPreviewArrayCount" ng-disabled="!hoverPreviewEnabled">
-        </label>
-      </li>
-      <li>
-        <label>
-          <code>hoverPreviewFieldCount</code>
-          <input type="number" ng-model="hoverPreviewFieldCount" ng-disabled="!hoverPreviewEnabled">
-        </label>
-      </li>
-      <li>
-        <label>
-          <code>elementsSelectable</code>
-          <input type="checkbox" ng-model="elementsSelectable">
-        </label>
-      </li>
-    </ul>
-
     <h4>Events</h4>
     <p>Every selection/deselection of an element fires <code>element.select</code> and <code>element.deselect</code>
       events respectively.</p>
@@ -100,9 +70,9 @@ app.controller('MainCtrl', function ($log, $jsonSelector) {
     <h4>Demo</h4>
     <div class="tests">
       <div class="result">
-        <json-selector json="complex" open="1" identifier="mymodel" allow-root-select="false"></json-selector>
+        <json-selector json="complex" open="1" identifier="mymodel" allow-root-select="false" selectable="true"></json-selector>
       </div>
-      <div class="result" ng-if="elementsSelectable">Selected elements: <code>{{mymodel | json}}</code></div>
+      <div class="result">Selected elements: <code>{{mymodel | json}}</code></div>
     </div>
 
     <h4>Live JSON</h4>

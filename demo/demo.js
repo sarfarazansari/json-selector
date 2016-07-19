@@ -1,25 +1,8 @@
 var app = angular.module('demo', ['ngSanitize', 'jsonSelector']);
 
-app.controller('MainCtrl', function ($scope, $http, JSONSelectorConfig, $jsonSelector, $log) {
+app.controller('MainCtrl', function ($scope, $http, $jsonSelector, $log) {
 
-  $scope.hoverPreviewEnabled = JSONSelectorConfig.hoverPreviewEnabled;
-  $scope.hoverPreviewArrayCount = JSONSelectorConfig.hoverPreviewArrayCount;
-  $scope.hoverPreviewFieldCount = JSONSelectorConfig.hoverPreviewFieldCount;
-  $scope.elementsSelectable = JSONSelectorConfig.elementsSelectable;
   $scope.mymodel = [];
-
-  $scope.$watch('hoverPreviewEnabled', function (newValue) {
-    JSONSelectorConfig.hoverPreviewEnabled = newValue;
-  });
-  $scope.$watch('hoverPreviewArrayCount', function (newValue) {
-    JSONSelectorConfig.hoverPreviewArrayCount = newValue;
-  });
-  $scope.$watch('hoverPreviewFieldCount', function (newValue) {
-    JSONSelectorConfig.hoverPreviewFieldCount = newValue;
-  });
-  $scope.$watch('elementsSelectable', function (newValue) {
-    JSONSelectorConfig.elementsSelectable = newValue;
-  });
 
   $jsonSelector.register(function (event, data) {
     $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));

@@ -1,13 +1,13 @@
 'use strict';
 
 describe('json-selector', function () {
-  var scope, $compile, $rootScope, element, fakeModule, JSONSelectorConfig;
+  var scope, $compile, $rootScope, element, fakeModule;
 
-  function createDirective(key, open, identifier) {
+  function createDirective(key, open, identifier, selectable) {
     open = open === undefined ? 0 : open;
     var elm;
     var template = '<json-selector json="' + key + '" open="' + open +
-        '" identifier="' + identifier + '"></json-selector>';
+      '" identifier="' + identifier + '" selectable="' + selectable + '"></json-selector>';
 
     elm = angular.element(template);
     angular.element(document.body).prepend(elm);
@@ -27,10 +27,10 @@ describe('json-selector', function () {
     scope.url = 'https://example.com';
     scope.emptyObject = {};
     scope.emptyObjectWithoutPrototype = Object.create(null);
-    scope.objectWithEmptyKey = { '': 1 };
+    scope.objectWithEmptyKey = {'': 1};
     scope.emptyArray = [];
     scope.array = ['one', 'two', 'three'];
-    scope.simpleObject = { me: 1 };
+    scope.simpleObject = {me: 1};
     scope.longerObject = {
       numbers: [
         1,
@@ -52,7 +52,7 @@ describe('json-selector', function () {
         return a + b;
       }
     };
-    scope.mixArray = [1, '2', { number: 3 }];
+    scope.mixArray = [1, '2', {number: 3}];
 
     $compile(elm)(scope);
     scope.$digest();
@@ -62,10 +62,7 @@ describe('json-selector', function () {
 
   beforeEach(function () {
     fakeModule = angular
-        .module('test.jsonSelector', ['jsonSelector', 'ngSanitize'])
-        .config(['JSONSelectorConfigProvider', function (_JSONSelectorConfig_) {
-          JSONSelectorConfig = _JSONSelectorConfig_;
-        }]);
+      .module('test.jsonSelector', ['jsonSelector', 'ngSanitize']);
     module('test.jsonSelector', 'jsonSelector', 'ngSanitize');
   });
 
@@ -227,41 +224,6 @@ describe('json-selector', function () {
       });
     });
 
-    describe('hover preview', function () {
-
-      it('default is disabled', function () {
-        element = createDirective('mixArray');
-        expect(element.find('.thumbnail-text').length).toBe(0);
-      });
-
-      describe('set enable', function () {
-        beforeEach(function () {
-          JSONSelectorConfig.hoverPreviewEnabled = true;
-        });
-
-        it('should render "simple object"', function () {
-          element = createDirective('simpleObject', 0);
-          expect(element.find('.thumbnail-text').text().trim()).toBe('{me:1}');
-        });
-
-        it('should render "longer object"', function () {
-          element = createDirective('longerObject', 0);
-          expect(element.find('.thumbnail-text').text().trim()).toBe('{numbers:Array[3], boolean:true, null:null, number:123, anObject:Object…}');
-        });
-
-        it('should render "array"', function () {
-          element = createDirective('array', 0);
-          expect(element.find('.thumbnail-text').text().trim()).toBe('["one", "two", "three"]');
-        });
-
-        it('should render "mixArray"', function () {
-          element = createDirective('mixArray', 0);
-          expect(element.find('.thumbnail-text').text().trim()).toBe('[1, "2", Object]');
-        });
-      });
-
-    });
-
     describe('elements selectable', function () {
 
       it('default is disabled', function () {
@@ -270,27 +232,24 @@ describe('json-selector', function () {
       });
 
       describe('if enabled', function () {
-        beforeEach(function () {
-          JSONSelectorConfig.elementsSelectable = true;
-        });
 
         it('should render "simple object"', function () {
-          element = createDirective('simpleObject', 1000);
+          element = createDirective('simpleObject', 1000, null, "true");
           expect(element.find('.selector-checkbox').length).toBe(2);
         });
 
         it('should render "longer object"', function () {
-          element = createDirective('longerObject', 1000);
+          element = createDirective('longerObject', 1000, null, "true");
           expect(element.find('.selector-checkbox').length).toBe(16);
         });
 
         it('should render "array"', function () {
-          element = createDirective('array', 1000);
+          element = createDirective('array', 1000, null, "true");
           expect(element.find('.selector-checkbox').length).toBe(4);
         });
 
         it('should render "mixArray"', function () {
-          element = createDirective('mixArray', 1000);
+          element = createDirective('mixArray', 1000, null, "true");
           expect(element.find('.selector-checkbox').length).toBe(5);
         });
       });
