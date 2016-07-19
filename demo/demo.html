@@ -41,11 +41,12 @@
     </p>
     <p>Use <code>&lt;json-selector&gt;</code> directive</p>
     <p>
-    <pre>&lt;json-selector open="1" json="{my: 'json'} model="mymodel"&gt;&lt;/json-selector&gt;</pre>
+    <pre>&lt;json-selector open="1" json="{my: 'json'} identifier="mymodel" allow-root-select="true"&gt;&lt;/json-selector&gt;</pre>
     </p>
     <p><code>open</code> attribute accepts a number that indicated how many levels JSON should be open</p>
     <p><code>identifier</code> is an optional attribute. This value will be sent in the event object. You can use it to
       uniquely identify your element when an event is triggered.</p>
+    <p><code>allow-root-select</code> is an option attribute which allows/denies selecting of root element.</p>
 
     <h4>Configuration</h4>
     <p>You can set following configurations via <code>JSONSelectorConfig</code> provider.</p>
@@ -99,7 +100,7 @@ app.controller('MainCtrl', function ($log, $jsonSelector) {
     <h4>Demo</h4>
     <div class="tests">
       <div class="result">
-        <json-selector json="complex" open="1" identifier="mymodel"></json-selector>
+        <json-selector json="complex" open="1" identifier="mymodel" allow-root-select="false"></json-selector>
       </div>
       <div class="result" ng-if="elementsSelectable">Selected elements: <code>{{mymodel | json}}</code></div>
     </div>

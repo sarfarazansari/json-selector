@@ -244,7 +244,13 @@ angular.module('jsonSelector', ['RecursionHelper'])
           };
 
           scope.elementsSelectable = function () {
-            return !!JSONSelectorConfig.elementsSelectable;
+            if (!JSONSelectorConfig.elementsSelectable) {
+              return false;
+            } else if (angular.isDefined(scope.allowRootSelect) && !scope.allowRootSelect && scope.parent === undefined) {
+              return false;
+            }
+
+            return true;
           };
 
           scope.isSelected = !!scope.selected;
@@ -285,7 +291,8 @@ angular.module('jsonSelector', ['RecursionHelper'])
             key: '=',
             open: '=',
             parent: '=',
-            identifier: '@'
+            identifier: '@',
+            allowRootSelect: '='
           },
           compile: function (element) {
 

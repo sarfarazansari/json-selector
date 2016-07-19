@@ -27,10 +27,11 @@ capability to select JSON elements by checkboxes.
 * Use `<json-selector>` directive
 
   ```html
-  <json-selector json="{my: 'json'}" open="1" identifier="mymodel"></json-formatter>
+  <json-selector json="{my: 'json'}" open="1" identifier="mymodel" allow-root-select="true"></json-formatter>
   ```
 * `open` attribute accepts a number which indicates how many levels rendered JSON should be opened
 * `identifier` is an optional attribute. This value will be sent in the event object. You can use it to uniquely identify your element when an event is triggered.
+* `allow-root-select` is an option attribute which allows/denies selecting of root element.
 
 #### Configuration
 

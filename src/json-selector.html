@@ -1,5 +1,7 @@
 <div ng-init="isOpen = open && open > 0" class="json-selector-row">
-  <input class="selector-checkbox" type="checkbox" ng-click="toggleSelectElement()" ng-if="elementsSelectable()">
+  <span ng-if="elementsSelectable()">
+    <input class="selector-checkbox" type="checkbox" ng-click="toggleSelectElement()">
+  </span>
   <a ng-click="toggleOpen()">
     <span class="toggler {{isOpen ? 'open' : ''}}" ng-if="isObject()"></span>
     <span class="key" ng-if="hasKey"><span class="key-text">{{key}}</span><span class="colon">:</span></span>
