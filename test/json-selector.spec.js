@@ -3,11 +3,11 @@
 describe('json-selector', function () {
   var scope, $compile, $rootScope, element, fakeModule;
 
-  function createDirective(key, open, identifier, selectable) {
+  function createDirective(key, open, selectable) {
     open = open === undefined ? 0 : open;
     var elm;
     var template = '<json-selector json="' + key + '" open="' + open +
-      '" identifier="' + identifier + '" selectable="' + selectable + '"></json-selector>';
+      '" selectable="' + selectable + '"></json-selector>';
 
     elm = angular.element(template);
     angular.element(document.body).prepend(elm);
@@ -234,22 +234,22 @@ describe('json-selector', function () {
       describe('if enabled', function () {
 
         it('should render "simple object"', function () {
-          element = createDirective('simpleObject', 1000, null, "true");
+          element = createDirective('simpleObject', 1000, "true");
           expect(element.find('.selector-checkbox').length).toBe(2);
         });
 
         it('should render "longer object"', function () {
-          element = createDirective('longerObject', 1000, null, "true");
+          element = createDirective('longerObject', 1000, "true");
           expect(element.find('.selector-checkbox').length).toBe(16);
         });
 
         it('should render "array"', function () {
-          element = createDirective('array', 1000, null, "true");
+          element = createDirective('array', 1000, "true");
           expect(element.find('.selector-checkbox').length).toBe(4);
         });
 
         it('should render "mixArray"', function () {
-          element = createDirective('mixArray', 1000, null, "true");
+          element = createDirective('mixArray', 1000, "true");
           expect(element.find('.selector-checkbox').length).toBe(5);
         });
       });

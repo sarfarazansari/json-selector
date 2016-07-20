@@ -1,7 +1,7 @@
 /*!
  * jsonselector
  * 
- * Version: 2.0.2 - 2016-07-20T06:14:20.957Z
+ * Version: 2.0.2 - 2016-07-20T07:22:57.394Z
  * License: Apache-2.0
  */
 
@@ -10,33 +10,8 @@
 
 angular.module('jsonSelector', ['RecursionHelper'])
 
-// Proxy services for events as per http://stackoverflow.com/a/29537535
-  .service('$jsonSelector', [function () {
-    var listeners = [];
-
-    var broadcastEvent = function (event, data) {
-      listeners.forEach(function (callback) {
-        if (angular.isFunction(callback)) {
-          callback(event, data);
-        }
-      });
-    };
-
-    return {
-      select: function (data) {
-        broadcastEvent('element.select', data);
-      },
-      deselect: function (data) {
-        broadcastEvent('element.deselect', data);
-      },
-      register: function (callback) {
-        listeners.push(callback);
-      }
-    };
-  }])
-
-  .directive('jsonSelector', ['RecursionHelper', '$jsonSelector',
-    function (RecursionHelper, $jsonSelector) {
+  .directive('jsonSelector', ['RecursionHelper',
+    function (RecursionHelper) {
 
       function escapeString(str) {
         return str.replace('"', '\"');
@@ -169,11 +144,13 @@ angular.module('jsonSelector', ['RecursionHelper'])
           return true;
         };
 
-        scope.isSelected = !!scope.selected;
-
         if (scope.selectable) {
           if (scope.parent === undefined) {
-            scope.model = scope.json;
+
+            if (!angular.isDefined(scope.model) || !angular.isArray(scope.model)) {
+              scope.model = [];
+            }
+
             scope.expression = "";
           } else {
             scope.model = scope.parent.model;
@@ -191,14 +168,20 @@ angular.module('jsonSelector', ['RecursionHelper'])
           }
         }
 
-        scope.toggleSelectElement = function () {
-          if (!scope.isSelected) {
-            $jsonSelector.select({ expression: scope.expression, identifier: scope.identifier });
-          } else {
-            $jsonSelector.deselect({ expression: scope.expression, identifier: scope.identifier });
+        scope.selection = function () {
+          if (!scope.model) {
+            return { selected: false };
           }
 
-          scope.isSelected = !scope.isSelected;
+          return { selected: scope.model.indexOf(scope.expression) !== -1 };
+        };
+
+        scope.toggleSelectElement = function () {
+          if (!scope.selection().selected) {
+            scope.model.push(scope.expression);
+          } else {
+            scope.model.splice(scope.model.indexOf(scope.expression), 1);
+          }
         };
       }
 
@@ -211,9 +194,9 @@ angular.module('jsonSelector', ['RecursionHelper'])
           key: '=',
           open: '=',
           parent: '=',
-          identifier: '@',
-          allowRootSelect: '=',
-          selectable: '='
+          allowRootSelect: '=?',
+          selectable: '=?',
+          model: '=?'
         },
         compile: function (element) {
 
@@ -276,4 +259,4 @@ angular.module('RecursionHelper', []).factory('RecursionHelper', ['$compile', fu
   };
 }]);
 
-angular.module("jsonSelector").run(["$templateCache", function($templateCache) {$templateCache.put("json-selector.html","<div ng-init=\"isOpen = open && open > 0\" class=\"json-selector-row\"><span ng-if=\"elementSelectable()\"><input class=\"selector-checkbox\" type=\"checkbox\" ng-click=\"toggleSelectElement()\"></span> <a ng-click=\"toggleOpen()\"><span class=\"toggler {{isOpen ? \'open\' : \'\'}}\" ng-if=\"isObject()\"></span> <span class=\"key\" ng-if=\"hasKey\"><span class=\"key-text\">{{key}}</span><span class=\"colon\">:</span></span> <span class=\"value\"><span ng-if=\"isObject()\"><span class=\"constructor-name\">{{getConstructorName(json)}}</span> <span ng-if=\"isArray()\"><span class=\"bracket\">[</span><span class=\"number\">{{json.length}}</span><span class=\"bracket\">]</span></span></span> <span ng-if=\"!isObject()\" ng-click=\"openLink(isUrl)\" class=\"{{type}}\" ng-class=\"{date: isDate, url: isUrl}\">{{parseValue(json)}}</span></span> <span ng-if=\"showThumbnail()\" class=\"thumbnail-text\">{{getThumbnail()}}</span></a><div class=\"children\" ng-if=\"getKeys().length && isOpen\"><json-selector ng-repeat=\"key in getKeys() track by $index\" json=\"json[key]\" key=\"key\" open=\"childrenOpen()\" parent=\"$parent\" identifier=\"{{identifier}}\" selectable=\"selectable\"></json-selector></div><div class=\"children empty object\" ng-if=\"isEmptyObject()\"></div><div class=\"children empty array\" ng-if=\"getKeys() && !getKeys().length && isOpen && isArray()\"></div></div>");}]);
+angular.module("jsonSelector").run(["$templateCache", function($templateCache) {$templateCache.put("json-selector.html","<div ng-init=\"isOpen = open && open > 0\" class=\"json-selector-row\"><span ng-if=\"elementSelectable()\"><input class=\"selector-checkbox\" type=\"checkbox\" ng-change=\"toggleSelectElement()\" ng-model=\"selection().selected\"></span> <a ng-click=\"toggleOpen()\"><span class=\"toggler {{isOpen ? \'open\' : \'\'}}\" ng-if=\"isObject()\"></span> <span class=\"key\" ng-if=\"hasKey\"><span class=\"key-text\">{{key}}</span><span class=\"colon\">:</span></span> <span class=\"value\"><span ng-if=\"isObject()\"><span class=\"constructor-name\">{{getConstructorName(json)}}</span> <span ng-if=\"isArray()\"><span class=\"bracket\">[</span><span class=\"number\">{{json.length}}</span><span class=\"bracket\">]</span></span></span> <span ng-if=\"!isObject()\" ng-click=\"openLink(isUrl)\" class=\"{{type}}\" ng-class=\"{date: isDate, url: isUrl}\">{{parseValue(json)}}</span></span></a><div class=\"children\" ng-if=\"getKeys().length && isOpen\"><json-selector ng-repeat=\"key in getKeys() track by $index\" json=\"json[key]\" key=\"key\" open=\"childrenOpen()\" parent=\"$parent\" selectable=\"selectable\"></json-selector></div><div class=\"children empty object\" ng-if=\"isEmptyObject()\"></div><div class=\"children empty array\" ng-if=\"getKeys() && !getKeys().length && isOpen && isArray()\"></div></div>");}]);

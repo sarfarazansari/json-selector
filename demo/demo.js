@@ -1,22 +1,8 @@
 var app = angular.module('demo', ['ngSanitize', 'jsonSelector']);
 
-app.controller('MainCtrl', function ($scope, $http, $jsonSelector, $log) {
+app.controller('MainCtrl', function ($scope, $http, $log) {
 
   $scope.mymodel = [];
-
-  $jsonSelector.register(function (event, data) {
-    $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
-
-    if (data.identifier === "mymodel") {
-      if (event === "element.select") {
-        $scope.mymodel.push(data.expression);
-      } else if (event === "element.deselect") {
-        $scope.mymodel.splice($scope.mymodel.indexOf(data.expression), 1);
-      }
-    }
-
-  });
-
   $scope.undef = undefined;
   $scope.textarea = '{}';
   $scope.complex = {
@@ -34,7 +20,7 @@ app.controller('MainCtrl', function ($scope, $http, $jsonSelector, $log) {
       e: 'f\"'
     },
     string: 'Hello World',
-    url: 'https://github.com/mohsen1/json-formatter',
+    url: 'https://github.com/31piy/json-selector',
     date: 'Sun Aug 03 2014 20:46:55 GMT-0700 (PDT)',
     func: function add(a, b) {
       return a + b;
@@ -63,7 +49,7 @@ app.controller('MainCtrl', function ($scope, $http, $jsonSelector, $log) {
     $http.get('giant.json').then(function (json) {
       $scope.giant = json;
     });
-  }
+  };
 
   function Person(name) {
     this.name = name;

@@ -1,6 +1,6 @@
 <div ng-init="isOpen = open && open > 0" class="json-selector-row">
   <span ng-if="elementSelectable()">
-    <input class="selector-checkbox" type="checkbox" ng-click="toggleSelectElement()">
+    <input class="selector-checkbox" type="checkbox" ng-change="toggleSelectElement()" ng-model="selection().selected">
   </span>
   <a ng-click="toggleOpen()">
     <span class="toggler {{isOpen ? 'open' : ''}}" ng-if="isObject()"></span>
@@ -13,13 +13,10 @@
       </span>
       <span ng-if="!isObject()" ng-click="openLink(isUrl)" class="{{type}}" ng-class="{date: isDate, url: isUrl}">{{parseValue(json)}}</span>
     </span>
-    <span ng-if="showThumbnail()" class="thumbnail-text">
-      {{getThumbnail()}}
-    </span>
   </a>
   <div class="children" ng-if="getKeys().length && isOpen">
     <json-selector ng-repeat="key in getKeys() track by $index" json="json[key]" key="key" open="childrenOpen()"
-                   parent="$parent" identifier="{{identifier}}" selectable="selectable"></json-selector>
+                   parent="$parent" selectable="selectable"></json-selector>
   </div>
   <div class="children empty object" ng-if="isEmptyObject()"></div>
   <div class="children empty array" ng-if="getKeys() && !getKeys().length && isOpen && isArray()"></div>

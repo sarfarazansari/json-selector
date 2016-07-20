@@ -2,33 +2,8 @@
 
 angular.module('jsonSelector', ['RecursionHelper'])
 
-// Proxy services for events as per http://stackoverflow.com/a/29537535
-  .service('$jsonSelector', [function () {
-    var listeners = [];
-
-    var broadcastEvent = function (event, data) {
-      listeners.forEach(function (callback) {
-        if (angular.isFunction(callback)) {
-          callback(event, data);
-        }
-      });
-    };
-
-    return {
-      select: function (data) {
-        broadcastEvent('element.select', data);
-      },
-      deselect: function (data) {
-        broadcastEvent('element.deselect', data);
-      },
-      register: function (callback) {
-        listeners.push(callback);
-      }
-    };
-  }])
-
-  .directive('jsonSelector', ['RecursionHelper', '$jsonSelector',
-    function (RecursionHelper, $jsonSelector) {
+  .directive('jsonSelector', ['RecursionHelper',
+    function (RecursionHelper) {
 
       function escapeString(str) {
         return str.replace('"', '\"');
@@ -161,11 +136,13 @@ angular.module('jsonSelector', ['RecursionHelper'])
           return true;
         };
 
-        scope.isSelected = !!scope.selected;
-
         if (scope.selectable) {
           if (scope.parent === undefined) {
-            scope.model = scope.json;
+
+            if (!angular.isDefined(scope.model) || !angular.isArray(scope.model)) {
+              scope.model = [];
+            }
+
             scope.expression = "";
           } else {
             scope.model = scope.parent.model;
@@ -183,14 +160,20 @@ angular.module('jsonSelector', ['RecursionHelper'])
           }
         }
 
-        scope.toggleSelectElement = function () {
-          if (!scope.isSelected) {
-            $jsonSelector.select({ expression: scope.expression, identifier: scope.identifier });
-          } else {
-            $jsonSelector.deselect({ expression: scope.expression, identifier: scope.identifier });
+        scope.selection = function () {
+          if (!scope.model) {
+            return { selected: false };
           }
 
-          scope.isSelected = !scope.isSelected;
+          return { selected: scope.model.indexOf(scope.expression) !== -1 };
+        };
+
+        scope.toggleSelectElement = function () {
+          if (!scope.selection().selected) {
+            scope.model.push(scope.expression);
+          } else {
+            scope.model.splice(scope.model.indexOf(scope.expression), 1);
+          }
         };
       }
 
@@ -203,9 +186,9 @@ angular.module('jsonSelector', ['RecursionHelper'])
           key: '=',
           open: '=',
           parent: '=',
-          identifier: '@',
-          allowRootSelect: '=',
-          selectable: '='
+          allowRootSelect: '=?',
+          selectable: '=?',
+          model: '=?'
         },
         compile: function (element) {
 

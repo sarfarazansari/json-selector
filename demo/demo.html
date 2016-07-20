@@ -15,15 +15,9 @@
 <div class="container">
   <div class="header">
     <ul class="nav nav-pills pull-right">
-      <li class="active"><a ng-href="https://github.com/mohsen1/json-selector">Code in GitHub</a></li>
+      <li class="active"><a ng-href="https://github.com/31piy/json-selector" target="_blank">Code in GitHub</a></li>
     </ul>
     <h1 class="text-muted">&lt;json-selector&gt;</h1>
-    <p>
-      <iframe src="http://ghbtns.com/github-btn.html?user=mohsen1&repo=json-selector&type=watch&size=large&count=true"
-              allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-      <iframe src="http://ghbtns.com/github-btn.html?user=mohsen1&repo=json-selector&type=fork&size=large&count=true"
-              allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-    </p>
   </div>
 
   <div class="row marketing">
@@ -41,36 +35,18 @@
     </p>
     <p>Use <code>&lt;json-selector&gt;</code> directive</p>
     <p>
-    <pre>&lt;json-selector open="1" json="{my: 'json'} identifier="mymodel" allow-root-select="true"&gt;&lt;/json-selector&gt;</pre>
+    <pre>&lt;json-selector open="1" json="{my: 'json'} selectable="true" allow-root-select="false" model="mymodel"&gt;&lt;/json-selector&gt;</pre>
     </p>
     <p><code>open</code> attribute accepts a number that indicated how many levels JSON should be open</p>
-    <p><code>identifier</code> is an optional attribute. This value will be sent in the event object. You can use it to
-      uniquely identify your element when an event is triggered.</p>
-    <p><code>allow-root-select</code> is an option attribute which allows/denies selecting of root element.</p>
+    <p><code>json</code> attribute sets the JSON which needs to be rendered.</p>
+    <p><code>selectable</code> sets whether the nodes are selectable via checkboxes.</p>
+    <p><code>allow-root-select</code> allows/denies selecting of root element.</p>
+    <p><code>model</code> is an array of expressions which are selected.</p>
 
-    <h4>Events</h4>
-    <p>Every selection/deselection of an element fires <code>element.select</code> and <code>element.deselect</code>
-      events respectively.</p>
-    <p>If you want, you can use <code>$jsonSelector</code> service to register a listener to these events.</p>
-          <pre>
-// Declare as a dependency in your controller
-app.controller('MainCtrl', function ($log, $jsonSelector) {
-  // ... your code here
-
-  $jsonSelector.register(function(event, data) {
-    $log.debug("Event: '" + event + "', data: " + JSON.stringify(data));
-  });
-
-  // ... your code here
-
-});</pre>
-
-    <p><code>event</code> will be the name of the event fired, and <code>data</code> will contain the expression of the
-      selected item, and identifier of the object, if defined. Open your console and watch it live.</p>
     <h4>Demo</h4>
     <div class="tests">
       <div class="result">
-        <json-selector json="complex" open="1" identifier="mymodel" selectable="true"></json-selector>
+        <json-selector json="complex" open="1" selectable="true" model="mymodel"></json-selector>
       </div>
       <div class="result">Selected elements: <code>{{mymodel | json}}</code></div>
     </div>
